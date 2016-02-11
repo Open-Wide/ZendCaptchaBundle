@@ -1,0 +1,13 @@
+parameters:
+    openwidezend_captcha.form.type.zend_captcha.class: Openwide\Bundle\ZendCaptchaBundle\Form\Type\ZendCaptchaType
+    openwide_zend_captcha.validator.zend_captcha.class: Openwide\Bundle\ZendCaptchaBundle\Validator\ZendCaptchaValidator
+services:
+    openwide_zend_captcha.form.type.zend_captcha:
+        class: %openwidezend_captcha.form.type.zend_captcha.class%
+        arguments:
+            - '@filesystem'
+            - '@session'
+            - '@translator'
+            - %openwide_zend_captcha.config%
+        tags:
+            - { name: form.type, alias: zend_captcha }

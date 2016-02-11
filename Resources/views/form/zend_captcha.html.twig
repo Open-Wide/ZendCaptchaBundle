@@ -1,0 +1,6 @@
+{% block zend_captcha_widget %}
+    {% spaceless %}
+        <img src="{{ img_url }}" width="{{ width }}" height="{{ height }}" id="{{ img_id }}" alt="{{ img_alt }}"/>
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
