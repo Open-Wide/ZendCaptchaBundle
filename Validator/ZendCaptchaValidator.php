@@ -21,11 +21,6 @@ class ZendCaptchaValidator
     private $session;
 
     /**
-     * Session key to store the code
-     */
-    private $key;
-
-    /**
      * Translator
      * @var TranslatorInterface
      */
@@ -36,13 +31,11 @@ class ZendCaptchaValidator
      *
      * @param TranslatorInterface $translator
      * @param SessionInterface $session
-     * @param $key
      */
-    public function __construct(TranslatorInterface $translator, SessionInterface $session, $key)
+    public function __construct(TranslatorInterface $translator, SessionInterface $session)
     {
         $this->translator = $translator;
         $this->session = $session;
-        $this->key = $key;
     }
 
     /**
@@ -51,9 +44,12 @@ class ZendCaptchaValidator
     public function validate(FormEvent $event)
     {
         $form = $event->getForm();
+        $sessionKey = sprintf('%s_zend_captcha_session_key_%s', $form->getParent()->getName(), $form->getName());
+
         $code = $form->getData();
 
-        $expectedCode = $this->getExpectedCode();
+        $expectedCode = $this->getExpectedCode($sessionKey);
+
         if (is_null($expectedCode)) {
             $form->addError(new FormError($this->translator->trans('An error has occured')));
         } else {
@@ -66,31 +62,27 @@ class ZendCaptchaValidator
     /**
      * Retrieve the CAPTCHA code
      *
+     *@param $key
+     *
      * @return mixed|null
      */
-    protected function getExpectedCode()
+    protected function getExpectedCode($key)
     {
         $arrayZendSession = new SessionArrayStorage();
 
-        if ($this->session->has($this->key)) {
-            $sessionKey = $this->session->get($this->key);
-            $this->session->remove($this->key);
+        if ($this->session->has($key)) {
+            $sessionKey = $this->session->get($key);
+            $this->session->remove($key);
 
-            if ($arrayZendSession->offsetExists($sessionKey)) {
-                $captchaSession = $arrayZendSession->offsetGet($sessionKey);
-                $arrayZendSession->offsetUnset($sessionKey);
+            $captchaSession = $arrayZendSession->offsetGet($sessionKey);
+            $arrayZendSession->offsetUnset($sessionKey);
+            if ($captchaSession instanceof ArrayObject) {
+                $word = $captchaSession->offsetGet('word');
+                $captchaSession->offsetUnset('word');
 
-                if ($captchaSession instanceof ArrayObject) {
-                    if ($captchaSession->offsetExists('word')) {
-                        $word = $captchaSession->offsetGet('word');
-                        $captchaSession->offsetUnset('word');
-
-                        return $word;
-                    }
-                }
+                return $word;
             }
         }
-
         return null;
     }
 

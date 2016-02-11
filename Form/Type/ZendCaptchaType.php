@@ -59,8 +59,7 @@ class ZendCaptchaType extends AbstractType
     {
         $validator = new ZendCaptchaValidator(
             $this->translator,
-            $this->session,
-            sprintf('zend_captcha_session_key_%s', $builder->getForm()->getName())
+            $this->session
         );
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, array($validator, 'validate'));
@@ -71,7 +70,7 @@ class ZendCaptchaType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $sessionKey = sprintf('zend_captcha_session_key_%s', $form->getName());
+        $sessionKey = sprintf('%s_zend_captcha_session_key_%s', $form->getParent()->getName(), $form->getName());
 
         $captcha = new Image();
 
