@@ -1,0 +1,27 @@
+{
+  "name": "openwide/zend-captcha-bundle",
+  "type": "symfony-bundle",
+  "description": "Zend Captcha bundle",
+  "keywords": ["symfony2", "captcha", "zend captcha", "captcha bundle", "visual", "code", "security", "spam"],
+  "homepage": "https://github.com/Open-Wide/ZendCaptchaBundle",
+  "license": "GNU GENERAL PUBLIC LICENSE",
+  "authors": [
+    {
+      "name": "Anis Jrad",
+      "email": "contact@anisjrad.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.9",
+    "symfony/framework-bundle": "~2.3|~3.0",
+    "zendframework/zend-captcha": "^2.5",
+    "zendframework/zend-validator": "^2.5",
+    "zendframework/zend-text": "^2.5",
+    "zendframework/zend-session": "^2.5"
+  },
+  "autoload": {
+    "psr-0": {
+      "Openwide\\Bundle\\ZendCaptchaBundle\\": "/"
+    }
+  }
+}
