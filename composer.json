@@ -20,8 +20,8 @@
     "zendframework/zend-session": "^2.5"
   },
   "autoload": {
-    "psr-0": {
-      "Openwide\\Bundle\\ZendCaptchaBundle\\": "/"
+     "psr-4": {
+        "Openwide\\Bundle\\ZendCaptchaBundle\\": ""
     }
   }
 }
