@@ -60,4 +60,5 @@ Options
 * **dot_noise_level** and **line_noise_level**  allow you to control how much “noise” in the form of random dots and lines the image would contain. The default is 100 dots and 5 lines. The noise is added twice - before and after the image distortion transformation.
 * **word_len**  allow you to specify the length of the generated “word” in characters. The default is 8.
 * **expiration** allow you to specify a maximum lifetime the CAPTCHA image may reside on the filesystem. Garbage collection is run periodically each time the CAPTCHA object is invoked, deleting all images that have expired. Expiration values should be specified in seconds. The default is 600.
-* **gc_freq** llow you to specify how frequently garbage collection should run. Garbage collection will run every 1/gcFreq calls. The default is 100.
+* **gc_freq** allow you to specify how frequently garbage collection should run. Garbage collection will run every 1/gcFreq calls. The default is 100.
+* **bypass_code** code that will always validate the captcha (default=null)

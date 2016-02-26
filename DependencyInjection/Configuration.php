@@ -39,6 +39,7 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('word_len')->end()//default Value 8 in Zend
             ->scalarNode('expiration')->end()//default Value 600 in Zend
             ->scalarNode('gc_freq')->end()//default Value 10 in Zend
+            ->scalarNode('bypass_code')->defaultValue(null)->end()
             ->end();
 
         return $treeBuilder;

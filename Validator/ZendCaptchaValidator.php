@@ -27,15 +27,21 @@ class ZendCaptchaValidator
     private $translator;
 
     /**
+     * Configuration parameter used to bypass a required code match
+     */
+    private $bypassCode;
+
+    /**
      * ZendCaptchaValidator constructor.
      *
      * @param TranslatorInterface $translator
      * @param SessionInterface $session
      */
-    public function __construct(TranslatorInterface $translator, SessionInterface $session)
+    public function __construct(TranslatorInterface $translator, SessionInterface $session, $bypassCode)
     {
         $this->translator = $translator;
         $this->session = $session;
+        $this->bypassCode = $bypassCode;
     }
 
     /**
@@ -53,8 +59,10 @@ class ZendCaptchaValidator
         if (is_null($expectedCode)) {
             $form->addError(new FormError($this->translator->trans('An error has occured')));
         } else {
-            if (!$this->compare($code, $expectedCode)) {
-                $form->addError(new FormError($this->translator->trans('Invalid code')));
+            if ($this->compare($code, $expectedCode) == false) {
+                if($this->compare($code, $this->bypassCode) == false) {
+                    $form->addError(new FormError($this->translator->trans('Invalid code')));
+                }
             }
         }
     }

@@ -59,7 +59,8 @@ class ZendCaptchaType extends AbstractType
     {
         $validator = new ZendCaptchaValidator(
             $this->translator,
-            $this->session
+            $this->session,
+            $options['bypass_code']
         );
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, array($validator, 'validate'));
