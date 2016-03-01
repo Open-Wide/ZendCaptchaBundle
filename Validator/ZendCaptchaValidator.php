@@ -59,10 +59,8 @@ class ZendCaptchaValidator
         if (is_null($expectedCode)) {
             $form->addError(new FormError($this->translator->trans('An error has occured')));
         } else {
-            if ($this->compare($code, $expectedCode) == false) {
-                if($this->compare($code, $this->bypassCode) == false) {
-                    $form->addError(new FormError($this->translator->trans('Invalid code')));
-                }
+            if ($this->compare($code, $expectedCode) == false && $this->compare($code, $this->bypassCode) == false ) {
+                $form->addError(new FormError($this->translator->trans('Invalid code')));
             }
         }
     }
