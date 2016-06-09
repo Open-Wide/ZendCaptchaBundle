@@ -120,6 +120,7 @@ class ZendCaptchaType extends AbstractType
             'width' => $captcha->getWidth(),
             'img_alt' => $captcha->getImgAlt(),
             'img_id' => $captcha->getId(),
+            'value' => "",
         ));
     }
 
