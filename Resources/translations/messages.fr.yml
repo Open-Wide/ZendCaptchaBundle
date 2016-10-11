@@ -1,2 +1,3 @@
 Invalid code: Le code visuel saisi est incorrect.
-An error has occured: Une erreur est survenue
+#code nomenclature :: ERR-CAPTCHA-session
+An error has occured: Le code visuel doit être saisi à nouveau.
